@@ -1,0 +1,30 @@
+name: StratumNPCs
+version: ${project.version}
+main: moe.quill.stratumnpcs.StratumNPCs
+api-version: 1.16
+depend: [ StratumSurvival ]
+commands:
+  spawnnpc:
+    description: Spawns an NPC of the given type.
+    permission: stratumnpcs.manage.spawn
+  removenpc:
+    description: Removes the NPC with the given name.
+    permission: stratumnpcs.manage.remove
+  addnpckey:
+    description: Adds the given key to the given npc
+    permission: stratumnpcs.manage.addkey
+  changeprofession:
+    description: Changes the profession of the given npc if they're a villager
+    permission: stratumnpcs.manage.changeprofession
+  changebiometype:
+    description: Changes the biome type of the given npc if they're a villager
+    permission: stratumnpcs.manage.changebiometype
+  addchatline:
+    description: Add a chat line to the npc
+    permission: stratumnpcs.manage.addchatline
+  removechatline:
+    description: remove the given chat line from the npc
+    permission: stratumnpcs.manage.removechatline
+  removechatlineraw:
+    description: remove the given chat line from the npc
+    permission: stratumnpcs.manage.removechatline
