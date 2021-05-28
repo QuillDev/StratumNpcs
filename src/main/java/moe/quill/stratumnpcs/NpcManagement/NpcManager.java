@@ -13,7 +13,6 @@ import org.bukkit.entity.Villager;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.Plugin;
 
-import java.awt.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -22,6 +21,11 @@ public class NpcManager {
     private final HashSet<Entity> npcList = new HashSet<>();
     private final static Random rand = new Random();
 
+    /**
+     * Create a new NPC manager for the given plugin
+     *
+     * @param plugin to create the npc manager for
+     */
     public NpcManager(Plugin plugin) {
         Bukkit.getWorlds()
                 .forEach(world -> {
@@ -56,6 +60,13 @@ public class NpcManager {
         }, 20 * 5, 20 * 5);
     }
 
+    /**
+     * Add the given key to the given NPC
+     *
+     * @param name of the npc to add the keyt to
+     * @param key  to add to the npc
+     * @return whether the key was added to the NPC correctly
+     */
     public boolean addKeyToNpc(String name, NamespacedKey key) {
         final var npc = getNpc(name);
         if (npc == null) return false;
@@ -68,6 +79,12 @@ public class NpcManager {
         }
     }
 
+    /**
+     * Get the NPC with the given name
+     *
+     * @param name of the NPC to get
+     * @return the npc if it exists, null if it doesnt
+     */
     public Entity getNpc(String name) {
         for (final var npc : npcList) {
             final var customName = npc.customName();
@@ -105,6 +122,11 @@ public class NpcManager {
         return true;
     }
 
+    /**
+     * Remove the npc with the given name from the npc manager
+     *
+     * @param name of the npc to remove
+     */
     public void removeNpc(String name) {
         for (final var npc : npcList) {
             if (!StratumSerialization.deserializeString(npc.getPersistentDataContainer()
@@ -116,6 +138,13 @@ public class NpcManager {
         }
     }
 
+    /**
+     * Add a chat line to the given npc using the given string
+     *
+     * @param name of the npc to add the line to
+     * @param line to add to the npc
+     * @return whether the chat line was successfully added or not
+     */
     public boolean addChatLine(String name, String line) {
         final var npc = getNpc(name);
         if (npc == null) return false;
@@ -149,16 +178,33 @@ public class NpcManager {
 
     }
 
+    /**
+     * Check if the given NPC name is a villager
+     *
+     * @param name of the npc
+     * @return whether they are a villager
+     */
     public boolean isVillager(String name) {
         final var target = getNpc(name);
         if (target == null) return false;
         return target instanceof Villager;
     }
 
+    /**
+     * Check whether the npc manager has an npc with the given name
+     *
+     * @param name of the NPC
+     * @return whether that NPC exists or not
+     */
     public boolean hasNpc(String name) {
         return getNpcNames().contains(name);
     }
 
+    /**
+     * Get the names of all existing NPCs
+     *
+     * @return all npc names
+     */
     public ArrayList<String> getNpcNames() {
         return npcList
                 .stream()
@@ -167,6 +213,13 @@ public class NpcManager {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
+    /**
+     * Remove the chat line of the given index from the given npc
+     *
+     * @param name  of the npc to remove the line from
+     * @param index of the line to remove
+     * @return whether the line was removed successfully or not.
+     */
     public boolean removeChatLine(String name, int index) {
         final var npc = getNpc(name);
         if (npc == null) return false;
@@ -185,6 +238,12 @@ public class NpcManager {
         }
     }
 
+    /**
+     * Get the chat line components for the npc with the given name
+     *
+     * @param name of the npc to get chat lines for
+     * @return the list of components if they exist
+     */
     public ArrayList<Component> getChatLines(String name) {
         final var npc = getNpc(name);
 
@@ -205,6 +264,11 @@ public class NpcManager {
         return chatData;
     }
 
+    /**
+     * Get the list of npcs that currently exist
+     *
+     * @return the list of npcs as a hash set
+     */
     public HashSet<Entity> getNpcList() {
         return npcList;
     }
