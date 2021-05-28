@@ -26,8 +26,10 @@ public class IntegrationsManager {
         }
 
         final var stratumEconomy = pluginManager.getPlugin("StratumEconomy");
-        if (stratumSurvival != null) {
+        if (stratumEconomy != null) {
             System.out.println("Found Stratum Economy, enabling integrations");
+            final var vendorKey = new NamespacedKey(stratumEconomy, "npc_vendor");
+            NpcKeys.addIntegrationKeys(vendorKey);
         }
     }
 }
